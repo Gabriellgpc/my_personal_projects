@@ -1,5 +1,5 @@
 # Sistemas Roboticos Autonomos
-Repositório para o material desenvolvido durante o curso de Sistemas Robóticos Autônomos (Pós de elétrica e computação)
+Projetos desenvolvidos durante o curso de Sistemas Robóticos Autônomos (Pós de elétrica e computação).
 
 # Dependências
 
