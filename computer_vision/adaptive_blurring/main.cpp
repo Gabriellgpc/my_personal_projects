@@ -21,15 +21,15 @@ int main(int argc, char **argv)
 
     if(argc != 3)
     {
-        std::cout << "Quando de argumentos inferior ao esperado\n";
+        std::cout << "Quantidade de argumentos inferior ao esperado\n";
         std::cout << "Entrada esperada:\n";
         std::cout << "./q1 imagem_path edge_threshold\n";
         return -1;
     }
     
     edge_threshold = fabs(std::stof(argv[2]));
-
-    img = cv::imread(argv[1], CV_LOAD_IMAGE_GRAYSCALE);
+    
+    img = cv::imread(argv[1], cv::IMREAD_GRAYSCALE);
     if (!img.data)
     {
         std::cerr << "Erro ao carregar imagem\n";
