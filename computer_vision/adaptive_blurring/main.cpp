@@ -1,12 +1,11 @@
 /***********************************************************************************************/
 /******* PROGRAMA PARA REALIZAR SUAVIZAÇÃO SELETIVA DE IMAGENS BASEADO DETECÇÃO DE BORDA *******/
-/* O PROGRAMA APLICA UMA SUAVIZAÇÃO FORTE NOS PIXEIS QUE NÃO SÃO CLASSIFICADOS COMO PIXEL DE BORDA */
-/* E UMA SUAVIZAÇÃO SUAVE CASO CONTRARIO */
+// O PROGRAMA APLICA UMA SUAVIZAÇÃO FORTE NOS PIXEIS QUE NÃO SÃO CLASSIFICADOS COMO PIXEL DE BORDA
+// E UMA SUAVIZAÇÃO SUAVE CASO CONTRARIO
 /***********************************************************************************************/
 #include <string>
 #include <opencv2/opencv.hpp>
 
-// using namespace cv;
 using namespace std;
 
 #define MEDIA_SIZE 10.0
