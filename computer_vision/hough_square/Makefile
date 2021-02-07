@@ -1,6 +1,9 @@
-CXXFLAGS	:=	-Wall	`pkg-config --cflags opencv`
+CXXFLAGS	:=	-Wall	`pkg-config --cflags opencv4`
 CXX	=	g++
-LDLIBS	:=	`pkg-config --libs opencv` #inclui todas as libs do opencv
+LDLIBS	:=	`pkg-config --libs opencv4` #inclui todas as libs do opencv
 
-.cpp:
-	$(CXX) $(CXXFLAGS) $(LDFLAGS) $< -o $@ $(LDLIBS)
+all:	main
+
+main:	main.cpp	myUtils.o
+
+myUtils.o:	myUtils.hpp	myUtils.cpp
