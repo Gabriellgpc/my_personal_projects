@@ -10,13 +10,13 @@ namespace mycv
     public:
         Image();
         Image(const Image &img);
-        Image(uint8_t*data, const uint16_t &n_columns, const uint16_t &n_rows);
+        Image(uint8_t *data, const uint16_t &n_columns, const uint16_t &n_rows);
         Image(const uint16_t &n_columns, const uint16_t &n_rows, const uint8_t &value = 0);
         ~Image();
 
         void free_image();
 
-        inline bool is_empty() const{ return (this->data_ == nullptr) ? true : false; }
+        inline bool is_empty() const { return (this->data_ == nullptr) ? true : false; }
 
         /**
          * @brief This aponta para o data de img (não há copia de dados aqui)
@@ -29,12 +29,14 @@ namespace mycv
          * 
          * @param img 
          */
-        void copy_to(Image img)const;
+        void copy_to(Image img) const;
 
         uint8_t operator()(const uint16_t &i, const uint16_t &j) const;
         uint8_t &operator()(const uint16_t &i, const uint16_t &j);
         // Não use esse, a menos que você goste muito dos [][]
-        uint8_t*operator[](const uint8_t &i);
+        uint8_t *operator[](const uint8_t &i);
+
+        void padding(const uint16_t &p_w, const uint16_t &p_h, const uint8_t &value = 0);
 
         /** 
          * @brief Retorna uma referencia para o dado bruto da imagem (cuidado em!)
@@ -43,8 +45,8 @@ namespace mycv
          */
         inline uint8_t *&data() { return this->data_; }
 
-        inline uint16_t width()const { return  this->width_;}
-        inline uint16_t height()const { return  this->height_;}
+        inline uint16_t width() const { return this->width_; }
+        inline uint16_t height() const { return this->height_; }
     private:
         uint8_t *data_ = nullptr;
         uint32_t size_;
@@ -86,25 +88,7 @@ namespace mycv
  * Stride
  * @return Image 
  */
+    Image conv2D(const Image &img, const float kernel_data[], const uint16_t &f,
+                 const uint16_t &p = 0, const uint16_t &s = 1, bool same=false);
 
-    Image conv2D(const Image &img, const Image &kernel);
- 
-    /**
- * @brief Função que implementa a operação de convolução 2D
- * 
- * @param img 
- * Imagem de entrada que sofrerá a convolução
- * @param kernel_data 
- * Filtro/kernel/núcleo que será utilizado na convolução com a imagem
- * @param f 
- * Dimensão do filtro (fxf)
- * @param p 
- * Padding
- * @param s 
- * Stride
- * @return Image 
- */
-    Image conv2D(const Image &img, const float &kernel_data, const uint16_t &f,
-                 const uint16_t &p = 0, const uint16_t &s = 1);
-
-} // namespace myUtils
+} // namespace mycv
