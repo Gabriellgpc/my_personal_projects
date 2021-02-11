@@ -7,6 +7,9 @@
 
 #include "artist.hpp"
 
+// #define SAVE
+#define FOLDER "steps"
+
 std::vector<cv::Point2i>
 _generate_pin_list(const unsigned int &n_pins,
                    const unsigned int radius,
@@ -68,7 +71,7 @@ knitty_art(const cv::Mat &img,
            const unsigned int &max_n_lines,
            const unsigned int &max_n_iterations,
            const unsigned int &min_dist,
-           const float &min_line_score ,
+           const float &min_line_score,
            const float &decay,
            const bool debug)
 {
@@ -76,6 +79,7 @@ knitty_art(const cv::Mat &img,
     cv::Mat result = cv::Mat::ones(img.size(), CV_8UC1) * 255;
     //Imagem que servira de referencia (gray scale da imagem de entrada)
     cv::Mat img_ref = cv::Mat(img.size(), CV_8UC1);
+    cv::Mat img_tmp;
 
     // Garante que a imagem result esteja em escala de cinza
     if (img.channels() > 1)
@@ -97,8 +101,12 @@ knitty_art(const cv::Mat &img,
 
     if (debug)
     {
-        cv::imshow("Image Segmented", img_ref);
-        cv::waitKey(0);
+        cv::resize(img_ref, img_tmp, cv::Size(320, 320*img_ref.size().height/(float)img_ref.size().width));
+        cv::imshow("Reference Image", img_tmp);
+        #ifdef SAVE
+        cv::imwrite("reference_image.png", img_ref);
+        #endif
+        cv::waitKey(1);
     }
 
     //vetor de "pinos"
@@ -166,8 +174,17 @@ knitty_art(const cv::Mat &img,
                 continue;
 
             //mostrando resultados intermediarios
-            cv::imshow("Result", result);
-            cv::imshow("Reference", img_ref);
+            // cv::imshow("Result", result);
+            // cv::imshow("Reference", img_ref);
+            cv::hconcat(img_ref, result, img_tmp);
+            cv::resize(img_tmp, img_tmp, cv::Size(640, 640*img_tmp.size().height/(float)img_tmp.size().width));
+            // cv::resize(img_tmp, img_tmp, cv::Size(), 0.5, 0.5);
+            cv::imshow("Computing...", img_tmp);
+
+            #ifdef SAVE
+            if(it % 10 == 0)
+                cv::imwrite(std::string(FOLDER)+"/step_"+std::to_string(it)+".png",img_tmp);
+            #endif
         }
     }
 

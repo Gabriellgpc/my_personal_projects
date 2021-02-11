@@ -7,23 +7,14 @@
 using namespace std;
 using namespace cv;
 
-#define width_default 500
+#define width_default 640*2
 #define N_PINS 240
-#define N_LINES 1000
-#define MAX_IT  99999
-#define MIN_DIST 100
-#define MIN_SCORE 10
+#define N_LINES 3000
+#define MAX_IT  N_LINES*2
+#define MIN_DIST width_default*0.01
+#define MIN_SCORE 30
 #define DECAY 100
 #define DEBUG true
-
-// #define width_default 500
-// #define N_PINS 240
-// #define N_LINES 1500
-// #define MAX_IT  5000
-// #define MIN_DIST 100
-// #define MIN_SCORE 35
-// #define DECAY 50
-// #define DEBUG true
 
 int main(int argc, char** argv)
 {
@@ -40,14 +31,14 @@ int main(int argc, char** argv)
     std::string image_file(argv[1]);
     img = imread(image_file, IMREAD_COLOR);
     
-    int height_default = width_default*(img.size().height / img.size().width);
+    int height_default = width_default*(img.size().height /(float)img.size().width);
     cv::resize(img, img, Size(width_default, height_default));
 
+    cout << "[INFO] Artista trabalhando...\n";
     result = knitty_art(img, movements, N_PINS, N_LINES, MAX_IT, MIN_DIST, MIN_SCORE, DECAY, DEBUG);
+    cout << "[INFO] Obra finalizada!\n";
 
-    imshow("input", img);
-    imshow("output", result);
-    waitKey(0);
+    if(DEBUG) waitKey(0);
 
     cout << "[INFO] Salvando os resultados...\n";
     imwrite(image_file + string("_.png"), result);
