@@ -1,5 +1,5 @@
 # Arte Com Fios
-Este projeto se trata da minha implementação para reproduzir o trabalho de arte com fios [Art Nitka](https://www.instagram.com/art.nitka/?utm_source=ig_embed). O programa recebe uma imagem e gera através de um processo por busca exaustiva uma imagem feita apenas com linhas pretas em um fundo branco que tenta reproduzir a imagem original. A seguir podemos ver uma animação do processo ocorrendo em etapas.
+Este projeto se trata da minha implementação para reproduzir o trabalho de arte com fios [Art Nitka](https://www.instagram.com/art.nitka/?utm_source=ig_embed). O programa recebe uma imagem e gera, através de um processo por busca exaustiva, uma imagem feita apenas com linhas pretas em um fundo branco que tenta reproduzir a imagem original. A seguir podemos ver uma animação do processo ocorrendo em etapas.
 
 ![](animation.gif)
 
@@ -30,10 +30,17 @@ Compilando e executando (no modo debug para ver as iterações):
 
 <!-- ![](animation_2.gif) -->
 
-Obs.: Gerei o gif animado usando o [imagemagick](https://webinista.com/updates/how-to-create-animated-gifs-imagemagick/)
+Já fiz alguns testes usando **"fios coloridos"** e o mais promissor foi:
+- Primeiramente separar a imagem colorida em imagens contendo apenas uma cor especifica, eu testei usar k-means para formar N grupos de cores representativas da imagem (N de 3 à 5 geralmente já estava bom);
+- Separar N imagens em escala de cinzas da imagem original, cada uma representando apenas um dos grupos de cores;
+- Utilizar o algoritmo que tinha usado para imagens em escala de cinza e no final eu junto tudo criando uma única imagem (dessa forma também facilita bastante a paralelização do algoritmo, uma thread para cada uma dessas N imagens).
+
+O mais complicado (e por isso ainda não postarei ainda) é a etapa de junção dos resultados, eu reparei no trabalho "real"/físico que o artista faz as artes coloridas por camadas de cores, por exemplo, ele primeiro traça todos os fios azuis e isso será a primeira camada, em seguida faz apenas com outro cor e assim por diante, até aí tranquilo, o problema é decidir automaticamente qual a ordem das camadas, ou seja, a ordem com que será desenhado cada um dos resultados individuais (é nessa etapa também que troco os "fios pretos" pelos coloridos correspondentes).
+
+
+**Obs.:** Gerei o gif animado usando o [imagemagick](https://webinista.com/updates/how-to-create-animated-gifs-imagemagick/)
 
 ```
 $ convert -delay 100 -loop 5 -dispose previous gifs/*.png animation.gif
 ```
-
 
