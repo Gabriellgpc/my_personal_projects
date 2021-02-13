@@ -1,4 +1,5 @@
-# Implementação da Operação de Convolução em imagens 2D
+# Filtragem Convolucional 2D
+Implementação em C++ da operação de convolução com parâmetros adicionais (stride e padding).
 Projeto bem simples, só mais para praticar o C++ e ter algum projeto com minha implementação da operação de convolução mais "completinha" (com stride, padding sendo variáveis, além do padrão padding = 0, stride = 1). 
 
 Fiz umas abstração simples de uma classe Imagem, apenas para trabalhar com imagens em tons de cinza (poderia ter feito colorido também, sem grandes dificuldades a mais) e para carregar e salvar imagens da memória eu decidi trabalhar com o padrão PGM ([Documento](https://en.wikipedia.org/wiki/Netpbm#File_formats) sobre o projeto **Netpbm** e os formatos de imagens definidos por eles.) que é o mais simples para implementar, embora ocupe muito espaço de memoria.
