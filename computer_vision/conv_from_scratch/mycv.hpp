@@ -4,7 +4,7 @@
 #include <cstddef>
 
 namespace mycv
-{
+{   
     class Image
     {
     public:
@@ -18,11 +18,6 @@ namespace mycv
 
         inline bool is_empty() const { return (this->data_ == nullptr) ? true : false; }
 
-        /**
-         * @brief This aponta para o data de img (não há copia de dados aqui)
-         * 
-         * @param img 
-         */
         void operator=(Image img);
         /**
          * @brief Copia this (este objeto) para img
